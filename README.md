@@ -70,12 +70,16 @@ After these steps there should be files `core.mecab.out.full-tdata` and `core.me
 near the `core.mecab.out`.
 Now let's create a seed model (without parameters).
 
-1. Create a raw analysis dictionary for Juman++ by concatenating `scripts/header.csv` and `lex.csv` from Unidic.
+1. Create a raw analysis dictionary for Juman++ by concatenating `scripts/unidic.header.csv` and `lex.csv` from Unidic.
+```bash
+cat ../scripts/unidic.header.csv <unidic-2.3.0>/lex.csv > concat.lex.csv
+```
+
 1. Compile an analysis dictionary: 
 ```bash
 jumanpp/src/core/tool/jumanpp_tool index \
     --spec ../src/unidic-2.3.0-simple.spec \
-    --dict-file <concatenated dictionary> \
+    --dict-file concat.lex.csv \
     --output unidic.seed
 
 ```
@@ -90,7 +94,7 @@ And finally, let's train a model:
 You can do analysis now with Juman++!
 
 ```
-src/jumanpp-unidic-simple unidic.model
+src/jumanpp-unidic-simple -d unidic.model
 ```
 
 ## Embedding a RNN
